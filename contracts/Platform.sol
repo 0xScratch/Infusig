@@ -104,6 +104,8 @@ contract Platform {
     ) public {
         require(_totalFunds > 0, "Total funds should be greater than 0");
 
+        myPortfolios[msg.sender].push(portfolios.length);
+
         portfolios.push(
             portfolio({
                 manager: msg.sender,
@@ -122,7 +124,6 @@ contract Platform {
             })
         );
 
-        myPortfolios[msg.sender].push(portfolios.length);
     }
 
     // function to change the range of total funds collected for a particular portfolio
@@ -426,7 +427,7 @@ contract Platform {
     }
 
     // my created portfolios
-    function getMyPortfolios() public view returns (uint[] memory) {
-        return myPortfolios[msg.sender];
+    function getPortfolioIds(address _to) public view returns (uint[] memory) {
+        return myPortfolios[_to];
     }
 }
