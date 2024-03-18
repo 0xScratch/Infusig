@@ -98,7 +98,7 @@ contract Platform {
         uint _totalFunds,
         uint _maxReturn,
         uint _feePercent
-    ) external {
+    ) public {
         require(_totalFunds > 0, "Total funds should be greater than 0");
 
         portfolios.push(
@@ -121,7 +121,7 @@ contract Platform {
     }
 
     // function to change the range of total funds collected for a particular portfolio
-    function changeTotalFunds(uint _id, uint _totalFunds) external isOpen(_id) {
+    function changeTotalFunds(uint _id, uint _totalFunds) public isOpen(_id) {
         require(
             portfolios[_id].manager == msg.sender,
             "Only the manager can change the total funds"
@@ -134,7 +134,7 @@ contract Platform {
     }
 
     // function by which manager can pay the amount decided to the smart contract which clarifies the fact that the manager is ready to invest the funds poured in his portfolio
-    function payAmount(uint _id) external payable isFeeTime(_id) {
+    function payAmount(uint _id) public payable isFeeTime(_id) {
         uint amountToPay = (portfolios[_id].amountCollected * portfolios[_id].maxReturn) / 1e18;
         require(
             msg.value >= amountToPay,
@@ -149,7 +149,7 @@ contract Platform {
     function changeMaxReturn(
         uint _id,
         uint _increasedPercentage
-    ) external payable {
+    ) public payable {
         require(portfolios[_id].isPaid == true, "First pay your initial amount");
         require(
             portfolios[_id].manager == msg.sender,
@@ -170,7 +170,7 @@ contract Platform {
     // Here charges will be applied to investors by both platform and portfolio manager
     // Then investors will get their crypto including the profits they earned and deducting the fees charged!
     // At end the portfolio manager will be returned his amount
-    function endPortfolio(uint _id) external inAction(_id){
+    function endPortfolio(uint _id) public inAction(_id){
         require(
             portfolios[_id].manager == msg.sender ||
                 portfolios[_id].deadlineApproached,
@@ -237,7 +237,7 @@ contract Platform {
     }
 
     // This function will be called by the owner in case he finds some fraudelent activites done by the portfolio..here money will be returned to the investors including the amount stored by the manager of that portfolio, and that portfolio managers will be send to blacklist
-    function terminatePortfolio(uint _id) external onlyOwner {
+    function terminatePortfolio(uint _id) public onlyOwner {
         require(
             portfolios[_id].status == PortfolioStatus.PortfolioInAction,
             "Portfolio is not in action"
@@ -283,26 +283,26 @@ contract Platform {
     ////////// Helper Functions //////////
 
     // This is a manual testing function to set the returns of a particular portfolio
-    function setReturns(uint id, uint _amount) external onlyOwner{
+    function setReturns(uint id, uint _amount) public onlyOwner{
         portfolioReturns[id] = _amount;
     }
 
     // This function will tell the current returns of a particular portfolio
-    function getReturns(uint id) external view returns (uint) {
+    function getReturns(uint id) public view returns (uint) {
         return portfolioReturns[id];
     }
 
     // function to manually change the portfolio status
-    function changeState(uint _id, PortfolioStatus _state) external onlyOwner {
+    function changeState(uint _id, PortfolioStatus _state) public onlyOwner {
         portfolios[_id].status = _state;
     }
 
     // function to change the platform fee
-    function changePlatformFee(uint _fee) external onlyOwner {
+    function changePlatformFee(uint _fee) public onlyOwner {
         platformFee = _fee;
     }
 
-    function markDeadlineApproached(uint _id) external onlyOwner {
+    function markDeadlineApproached(uint _id) public onlyOwner {
         portfolios[_id].deadlineApproached = true;
         if (portfolioReturns[_id] > portfolios[_id].maxReturn) {
             portfolioReturns[_id] = portfolios[_id].maxReturn;
@@ -310,7 +310,7 @@ contract Platform {
     }
 
     // This is a manual function to close the portfolio as the first deadline hits
-    function closePortfolio(uint _id) external onlyOwner {
+    function closePortfolio(uint _id) public onlyOwner {
         portfolios[_id].isOpen = false;
         portfolios[_id].status = PortfolioStatus.FeeTimeForManager;
     }
@@ -318,7 +318,7 @@ contract Platform {
     ////////// Functions for Investors //////////
 
     // function to invest in a particular portfolio
-    function invest(uint _portfolioId) external payable isOpen(_portfolioId) {
+    function invest(uint _portfolioId) public payable isOpen(_portfolioId) {
         require(
             msg.value >= portfolios[_portfolioId].minAmount,
             "Amount should be greater than the minimum amount"
@@ -333,7 +333,7 @@ contract Platform {
         portfolios[_portfolioId].investors.push(msg.sender);
     }
 
-    function withdraw(uint _portfolioId, uint amount) external {
+    function withdraw(uint _portfolioId, uint amount) public {
         require(amount > 0, "Amount should be greater than 0");
         require(
             amount <= portfolioInvestors[_portfolioId][msg.sender],
@@ -376,7 +376,60 @@ contract Platform {
         }
     }
 
-    function getOwner() public view returns (address) {
-        return owner;
+    ////////// Getters //////////
+
+    // get the portfolio name
+    function getPortfolioName(uint _id) public view returns (string memory) {
+        return portfolios[_id].name;
+    }
+    
+    // get the portfolio manager_address
+    function getPortfolioManager(uint _id) public view returns (address) {
+        return portfolios[_id].manager;
+    }
+
+    // get the portfolio minimum amount
+    function getPortfolioMinAmount(uint _id) public view returns (uint) {
+        return portfolios[_id].minAmount;
+    }
+
+    // get the portfolio total funds
+    function getPortfolioTotalFunds(uint _id) public view returns (uint) {
+        return portfolios[_id].totalFunds;
+    }
+
+    // get the portfolio max return
+    function getPortfolioMaxReturn(uint _id) public view returns (uint) {
+        return portfolios[_id].maxReturn;
+    }
+
+    // get the portfolio amount collected
+    function getPortfolioAmountCollected(uint _id) public view returns (uint) {
+        return portfolios[_id].amountCollected;
+    }
+
+    // get the portfolio fee percent
+    function getPortfolioFeePercent(uint _id) public view returns (uint) {
+        return portfolios[_id].feePercent;
+    }
+
+    // get the portfolio status
+    function getPortfolioStatus(uint _id) public view returns (PortfolioStatus) {
+        return portfolios[_id].status;
+    }
+
+    // check if the portfolio is open
+    function isPortfolioOpen(uint _id) public view returns (bool) {
+        return portfolios[_id].isOpen;
+    }
+
+    // check if the portfolio is paid
+    function isPortfolioPaid(uint _id) public view returns (bool) {
+        return portfolios[_id].isPaid;
+    }
+
+    // check if the portfolio deadline has approached
+    function hasDeadlineApproached(uint _id) public view returns (bool) {
+        return portfolios[_id].deadlineApproached;
     }
 }
