@@ -9,12 +9,8 @@ const { platformAddress } = require('@/context/address.json')
 export default function MyPortfolios() {
     const contract = new Contract(platformAddress, Platform.abi)
 
-    const someValue = useCall({contract, method: 'owner', args: []})
-    // if (someValue && someValue.value && someValue.value[0]) {
-    //     const etherValue = utils.formatEther(someValue.value[0]);
-    //     console.log(etherValue); // Outputs the value in ether
-    // } 
-    console.log(someValue)
+    // const someValue = useCall({contract, method: 'getPortfolioMajorDetails', args: [0]})
+    // console.log(someValue)
     
     return (
         <main className="flex flex-col items-start justify-center min-h-screen text-white px-10">

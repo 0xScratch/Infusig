@@ -40,6 +40,9 @@ contract Platform {
 
     // investors mapping
     mapping(uint => mapping(address => uint)) public portfolioInvestors;
+    
+    // my-created-portfolios
+    mapping(address => uint[]) public myPortfolios;
 
     // owner
     address public owner;
@@ -118,6 +121,8 @@ contract Platform {
                 investors: new address[](0)
             })
         );
+
+        myPortfolios[msg.sender].push(portfolios.length);
     }
 
     // function to change the range of total funds collected for a particular portfolio
@@ -378,39 +383,26 @@ contract Platform {
 
     ////////// Getters //////////
 
-    // get the portfolio name
-    function getPortfolioName(uint _id) public view returns (string memory) {
-        return portfolios[_id].name;
-    }
-    
     // get the portfolio manager_address
     function getPortfolioManager(uint _id) public view returns (address) {
         return portfolios[_id].manager;
     }
 
-    // get the portfolio minimum amount
-    function getPortfolioMinAmount(uint _id) public view returns (uint) {
-        return portfolios[_id].minAmount;
-    }
-
-    // get the portfolio total funds
-    function getPortfolioTotalFunds(uint _id) public view returns (uint) {
-        return portfolios[_id].totalFunds;
-    }
-
-    // get the portfolio max return
-    function getPortfolioMaxReturn(uint _id) public view returns (uint) {
-        return portfolios[_id].maxReturn;
-    }
-
-    // get the portfolio amount collected
-    function getPortfolioAmountCollected(uint _id) public view returns (uint) {
-        return portfolios[_id].amountCollected;
-    }
-
-    // get the portfolio fee percent
-    function getPortfolioFeePercent(uint _id) public view returns (uint) {
-        return portfolios[_id].feePercent;
+    // get the portfolio details
+    function getPortfolioMajorDetails(uint _id)
+        public
+        view
+        returns (string memory, uint, uint, uint, uint, uint, uint)
+    {
+        return (
+            portfolios[_id].name,
+            portfolios[_id].id,
+            portfolios[_id].minAmount,
+            portfolios[_id].totalFunds,
+            portfolios[_id].maxReturn,
+            portfolios[_id].amountCollected,
+            portfolios[_id].feePercent
+        );
     }
 
     // get the portfolio status
@@ -431,5 +423,10 @@ contract Platform {
     // check if the portfolio deadline has approached
     function hasDeadlineApproached(uint _id) public view returns (bool) {
         return portfolios[_id].deadlineApproached;
+    }
+
+    // my created portfolios
+    function getMyPortfolios() public view returns (uint[] memory) {
+        return myPortfolios[msg.sender];
     }
 }
