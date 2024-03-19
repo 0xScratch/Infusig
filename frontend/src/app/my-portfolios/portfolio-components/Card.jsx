@@ -32,6 +32,8 @@ const Card = ({ id, contract, investor }) => {
 
     const { state: investState, send: investSend } = useContractFunction(contract, 'invest');
 
+    const { state: endPortfolioState, send: endPortfolioSend } = useContractFunction(contract, 'endPortfolio');
+
 
     // function to handle the investment
     const handleInvestAmount = async (e) => {
@@ -123,6 +125,53 @@ const Card = ({ id, contract, investor }) => {
     // to check if the total funds transaction is mining
     const isTotalFunds = totalFundsState?.status === 'Mining'
 
+    // console.log((amountCollected * maxReturn) / 100)
+
+    // function to handle the payment
+    const handlePayAmount = async (e) => {
+        e.preventDefault()
+
+        // checking if the chainId is not equal to the MoonbaseAlpha chainId
+        try {
+            if (ChainId !== MoonbaseAlpha.chainId) {
+                await switchNetwork(MoonbaseAlpha.chainId)
+            }
+
+            const finalValue = (amountCollected * maxReturn) / 100
+            const weiValue = ethers.utils.parseEther(finalValue.toString());
+
+            // sending the transaction
+            await payAmountSend(id, { value: weiValue })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // to check if the pay amount transaction is mining
+    const isPaying = payAmountState?.status === 'Mining'
+
+
+    // function to handle the end of a portfolio
+    const handleEndPortfolio = async (e) => {
+        e.preventDefault()
+
+        // checking if the chainId is not equal to the MoonbaseAlpha chainId
+        try {
+            if (ChainId !== MoonbaseAlpha.chainId) {
+                await switchNetwork(MoonbaseAlpha.chainId)
+            }
+
+            // sending the transaction
+            await endPortfolioSend(id)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // to check if the end portfolio transaction is mining
+    const isEndingPortfolio = endPortfolioState?.status === 'Mining'
+
+
     // helper function to convert wei to eth
     const helperFunc = (wei) => {
         const eth = utils.formatEther(wei);
@@ -178,9 +227,13 @@ const Card = ({ id, contract, investor }) => {
                     <input type="number" className="border-2 border-gray-300 rounded text-black px-2 w-1/2" placeholder="Enter New Amount" min={0} step={0.001} onChange={(e) => setNewTotalFunds(e.target.value)} />
                 </div>
                 <div className="flex gap-4 justify-between">
-                    <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded w-full">Pay Amount</button>
+                    <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded w-full" onClick={handlePayAmount}>
+                        {isPaying ? 'Paying...' : 'Pay Amount'}
+                    </button>
                 </div>
-                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded w-full">End Portfolio</button>
+                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded w-full" onClick={handleEndPortfolio}>
+                    {isEndingPortfolio ? 'Wrapping Up...' : 'End Portfolio'}
+                </button>
             </div>}
             {investor && <div className="flex flex-col space-y-4 mt-6">
                 <div className="flex justify-between gap-4">

@@ -34,9 +34,9 @@ const Navbar = () => {
                         <li className="mr-8">
                             <a className="inline-block py-2 px-4 text-white no-underline hover:underline hover:text-gray-200 transition duration-200 ease-in-out" href="/create-an-portfolio"><strong>Build a Portfolio</strong></a>
                         </li>
-                        <li className="mr-14">
-                            <a className="inline-block py-2 px-4 text-white no-underline hover:underline hover:text-gray-200 transition duration-200 ease-in-out" href="#"><strong>About Us</strong></a>
-                        </li>
+                        {account == '0x52C4A8F1C008a5Fc56e86b561f92Ec54B75d7493' && <li className="mr-14">
+                            <a className="inline-block py-2 px-4 text-white no-underline hover:underline hover:text-gray-200 transition duration-200 ease-in-out" href="/owner"><strong>Owner&apos;s Section</strong></a>
+                        </li>}
                         <li className="mr-5">
                            <button className="inline-block text-white bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded transition duration-200 ease-in-out" onClick={handleWalletConnection}>
                             {account
