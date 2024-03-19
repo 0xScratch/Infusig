@@ -23,7 +23,7 @@ export default function Portfolio() {
 
     // setting up the contract function
     const { state, send} = useContractFunction(platformContract, 'createPortfolio')
-
+    
     // handling the form submission
     const handleSubmit = async (e) => {
         // preventing the default form submission
@@ -52,7 +52,7 @@ export default function Portfolio() {
 
     return (
         <main>
-            <div className="flex items-center justify-center h-screen pt-20">
+            <div className="flex items-center justify-center h-screen -mt-12">
                 <form className="w-1/3 bg-white rounded-lg shadow-lg p-6">
                     <h2 className="text-2xl font-bold mb-5 text-gray-900">Create Your Portfolio!</h2>
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="company-name">

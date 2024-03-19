@@ -26,7 +26,7 @@ const Navbar = () => {
                 <div className="flex w-full pt-2 content-center justify-between md:w-1/2 md:justify-end mb-2">
                     <ul className="list-reset flex justify-between flex-1 md:flex-none items-center">
                         <li className="mr-8">
-                            <Link className="inline-block py-2 px-4 text-white no-underline hover:underline hover:text-white transition duration-200 ease-in-out" href="#"><strong>Invest Now</strong></Link>
+                            <Link className="inline-block py-2 px-4 text-white no-underline hover:underline hover:text-white transition duration-200 ease-in-out" href="/browse-portfolios"><strong>Invest Now</strong></Link>
                         </li>
                         <li className="mr-8">
                             <Link className="inline-block py-2 px-4 text-white no-underline hover:underline hover:text-white transition duration-200 ease-in-out" href="/my-portfolios"><strong>My Portfolios</strong></Link>

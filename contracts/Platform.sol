@@ -33,16 +33,19 @@ contract Platform {
     }
 
     // portfolio array
-    portfolio[] public portfolios;
+    portfolio[] private portfolios;
+
+    // tells whether an portfolio is deleted or not!
+    mapping(uint => bool) private isDeleted;
 
     // returns mapping
-    mapping(uint => uint) public portfolioReturns;
+    mapping(uint => uint) private portfolioReturns;
 
     // investors mapping
-    mapping(uint => mapping(address => uint)) public portfolioInvestors;
+    mapping(uint => mapping(address => uint)) private portfolioInvestors;
     
     // my-created-portfolios
-    mapping(address => uint[]) public myPortfolios;
+    mapping(address => uint[]) private myPortfolios;
 
     // owner
     address public owner;
@@ -239,6 +242,7 @@ contract Platform {
         }
 
         // At last delete the portfolio data from the blockchain
+        isDeleted[_id] = true;
         delete portfolios[_id];
     }
 
@@ -283,6 +287,7 @@ contract Platform {
         // Here we can blacklist the portfolio manager
 
         // At last delete the portfolio data from the blockchain
+        isDeleted[_id] = true;
         delete portfolios[_id];
     }
 
@@ -429,5 +434,23 @@ contract Platform {
     // my created portfolios
     function getPortfolioIds(address _to) public view returns (uint[] memory) {
         return myPortfolios[_to];
+    }
+
+    // checkwhether the portfolio is deleted or not
+    function isPortfolioDeleted(uint _id) public view returns (bool) {
+        return isDeleted[_id];
+    }
+
+    // To get the ids of all the portfolios
+    function getallIds() public view returns (uint[] memory) {
+        uint length = portfolios.length;
+        uint[] memory ids = new uint[](length);
+        for (uint i; i < length;) {
+            ids[i] = portfolios[i].id;
+            unchecked {
+                ++i;
+            }
+        } 
+        return ids;
     }
 }

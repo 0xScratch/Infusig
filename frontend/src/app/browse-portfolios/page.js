@@ -3,7 +3,7 @@
 import { useCall, useEthers } from "@usedapp/core";
 import Platform from '@/context/Platform.json'
 import { Contract, utils } from "ethers";
-import Card from "./portfolio-components/Card";
+import Card from "../my-portfolios/portfolio-components/Card";
 import { useMemo } from "react";
 
 const { platformAddress } = require('@/context/address.json')
@@ -18,14 +18,13 @@ const PortfolioCard = ({ id, contract }) => {
     return <Card id={id} contract={contract} />
 }
 
-export default function MyPortfolios() {
+export default function BrowsePortfolios() {
     
-    const { account } = useEthers()
+    // const { account } = useEthers()
     
     const contract = useMemo(() => new Contract(platformAddress, Platform.abi), []);
-    // const callArgs = useMemo(() => ({contract, method: 'getPortfolioIds', args: [account]}), [contract, account]);
+    // const callArgs = useMemo(() => ({contract, method: 'getallIds', args: []}), [contract]);
     // const someValue = useCall(callArgs)
-    // console.log(someValue)
     
     return (
         <main className="flex flex-col items-start justify-center text-white px-10 ml-20 mt-10">
@@ -40,7 +39,7 @@ export default function MyPortfolios() {
                         key={id} 
                         id={id}
                         contract={contract} 
-                        investor={false}
+                        investor={true}
                     />)
                 }
                 {/* Add more Card components here */}
