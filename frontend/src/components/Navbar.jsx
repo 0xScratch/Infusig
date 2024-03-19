@@ -18,7 +18,7 @@ const Navbar = () => {
     }
 
     return (
-        <nav className="bg-[#06071b] p-2 w-full sticky top-1 z-50 mb-10">
+        <nav className="bg-[#06071b] p-2 w-full sticky top-1 z-50">
             <div className="container mx-auto flex flex-wrap items-center">
                 <div className="flex w-full md:w-1/2 justify-center md:justify-start">
                     <Image src="/logo.png" alt="logo" className='logo' width={200} height={50} priority/>
