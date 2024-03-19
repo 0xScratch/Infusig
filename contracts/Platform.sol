@@ -344,6 +344,7 @@ contract Platform {
         portfolios[_portfolioId].investors.push(msg.sender);
     }
 
+    // function to withdraw from a particular portfolio
     function withdraw(uint _portfolioId, uint amount) public {
         require(amount > 0, "Amount should be greater than 0");
         require(

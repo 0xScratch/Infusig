@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { ChainId, MoonbaseAlpha, useCall, useContractFunction } from "@usedapp/core";
-import { utils } from "ethers";
+import { ChainId, MoonbaseAlpha, useCall, useContractFunction, useEthers } from "@usedapp/core";
+import { ethers, utils } from "ethers";
 
 const Card = ({ id, contract, investor }) => {
 
@@ -17,30 +17,111 @@ const Card = ({ id, contract, investor }) => {
     const [newTotalFunds, setNewTotalFunds] = useState(0);
     const [payAmount, setPayAmount] = useState(0);
     const [withdrawAmount, setWithdrawAmount] = useState(0);
-    const [investAmount, setInvestAmount] = useState(0); 
+    const [investAmount, setInvestAmount] = useState(0);
+
+    const { switchNetwork } = useEthers();
 
     // changing the contract state
-    const { maxReturnState, maxReturnSend } = useContractFunction(contract, 'changeMaxReturn');
+    const { state: maxReturnState, send: maxReturnSend } = useContractFunction(contract, 'changeMaxReturn');
 
-    const { totalFundsState, totalFundsSend } = useContractFunction(contract, 'changeTotalFunds');
+    const { state: totalFundsState, send: totalFundsSend } = useContractFunction(contract, 'changeTotalFunds');
 
-    const { payAmountState, payAmountSend } = useContractFunction(contract, 'payAmount');
+    const { state: payAmountState, send: payAmountSend } = useContractFunction(contract, 'payAmount');
 
-    const { withdrawAmountState, withdrawAmountSend } = useContractFunction(contract, 'withdraw');
+    const { state: withdrawAmountState, send: withdrawAmountSend } = useContractFunction(contract, 'withdraw');
 
-    const { investAmountState, investAmountSend } = useContractFunction(contract, 'invest');
+    const { state: investState, send: investSend } = useContractFunction(contract, 'invest');
 
-    // function to handle the change in max return
-    // const handleChangeMaxReturn = async (e) => {
-    //     e.preventDefault()
 
-    //     // checking if the chainId is not equal to the MoonbaseAlpha chainId
-    //     try {
-    //         if (ChainId !== MoonbaseAlpha.chainId) {
-    //             await switchNetwork(MoonbaseAlpha.chainId)
-    //         }
-    //     }
-    // }
+    // function to handle the investment
+    const handleInvestAmount = async (e) => {
+        e.preventDefault()
+
+        // checking if the chainId is not equal to the MoonbaseAlpha chainId
+        try {
+            if (ChainId !== MoonbaseAlpha.chainId) {
+                await switchNetwork(MoonbaseAlpha.chainId)
+            }
+
+            const weiValue = ethers.utils.parseEther(investAmount.toString());
+            // sending the transaction
+            await investSend(id, { value: weiValue })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // to check if the invest transaction is mining
+    const isInvesting = investState?.status === 'Mining'
+
+
+    // function to handle the change of withdraw amount
+    const handleWithdrawAmount = async (e) => {
+        e.preventDefault()
+
+        // checking if the chainId is not equal to the MoonbaseAlpha chainId
+        try {
+            if (ChainId !== MoonbaseAlpha.chainId) {
+                await switchNetwork(MoonbaseAlpha.chainId)
+            }
+
+            const weiValue = ethers.utils.parseEther(withdrawAmount.toString());
+            // sending the transaction
+            await withdrawAmountSend(id, weiValue)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // to check if the withdraw transaction is mining
+    const isWithdrawing = withdrawAmountState?.status === 'Mining'
+
+
+    // function to handle the change of max return
+    const handleMaxReturn = async (e) => {
+        e.preventDefault()
+
+        // checking if the chainId is not equal to the MoonbaseAlpha chainId
+        try {
+            if (ChainId !== MoonbaseAlpha.chainId) {
+                await switchNetwork(MoonbaseAlpha.chainId)
+            }
+
+            const maxReturnInCorrectUnit = ethers.utils.parseUnits(newMaxReturn.toString(), 16);
+            const product = (totalFunds * newMaxReturn) / 100;
+            const finalValue = ethers.utils.parseEther(product.toString());
+
+            // sending the transaction
+            await maxReturnSend(id, maxReturnInCorrectUnit, { value: finalValue })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // to check if the max return transaction is mining
+    const isMaxReturn = maxReturnState?.status === 'Mining'
+
+
+    // function to handle the change of total funds
+    const handleTotalFunds = async (e) => {
+        e.preventDefault()
+
+        // checking if the chainId is not equal to the MoonbaseAlpha chainId
+        try {
+            if (ChainId !== MoonbaseAlpha.chainId) {
+                await switchNetwork(MoonbaseAlpha.chainId)
+            }
+
+            const weiValue = ethers.utils.parseEther(newTotalFunds.toString());
+            // sending the transaction
+            await totalFundsSend(id, weiValue)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // to check if the total funds transaction is mining
+    const isTotalFunds = totalFundsState?.status === 'Mining'
 
     // helper function to convert wei to eth
     const helperFunc = (wei) => {
@@ -50,23 +131,25 @@ const Card = ({ id, contract, investor }) => {
 
     // calling the contract to get the portfolio details
     const portfolioDetails = useMemo(() => ({ contract, method: 'getPortfolioMajorDetails', args: [id] }), [contract, id]);
-    // const details = useCall(portfolioDetails); 
+    const details = useCall(portfolioDetails);
 
-    // useEffect(() => {
-    //     const setValues = () => {
-    //         if (details && details.value) {
 
-    //             setName(details.value[0].toString());
-    //             setMaxReturn(helperFunc(details.value[4]._hex) * 100);
-    //             setTotalFunds(helperFunc(details.value[3]._hex));
-    //             setMinAmount(helperFunc(details.value[2]._hex));
-    //             setFeePercent(helperFunc(details.value[6]._hex) * 100);
-    //             setAmountCollected(helperFunc(details.value[5]._hex))
-    //         }
-    //     }
+    // setting the values from the contract
+    useEffect(() => {
+        const setValues = () => {
+            if (details && details.value) {
 
-    //     setValues();
-    // }, [details])
+                setName(details.value[0].toString());
+                setMaxReturn(helperFunc(details.value[4]._hex) * 100);
+                setTotalFunds(helperFunc(details.value[3]._hex));
+                setMinAmount(helperFunc(details.value[2]._hex));
+                setFeePercent(helperFunc(details.value[6]._hex) * 100);
+                setAmountCollected(helperFunc(details.value[5]._hex))
+            }
+        }
+
+        setValues();
+    }, [details])
 
     return (
         <div className="bg-white card text-black rounded-lg p-6 w-1/3">
@@ -83,26 +166,33 @@ const Card = ({ id, contract, investor }) => {
             </ul>
             {!investor && <div className="flex flex-col space-y-4 mt-6">
                 <div className="flex gap-4 justify-between">
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/2">Change Max. Return</button>
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/2" onClick={handleMaxReturn}>
+                        {isMaxReturn ? 'Checking In...' : 'Change Max. Return'}
+                    </button>
                     <input type="number" className="border-2 border-gray-300 rounded text-black px-2 w-1/2" placeholder="Enter Increased %" min={1} step={0.01} onChange={(e) => setNewMaxReturn(e.target.value)} />
                 </div>
                 <div className=" gap-4 flex justify-between">
-                    <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-1/2">Change Total Funds</button>
+                    <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-1/2" onClick={handleTotalFunds}>
+                        {isTotalFunds ? 'Changing...' : 'Change Total Funds'}
+                    </button>
                     <input type="number" className="border-2 border-gray-300 rounded text-black px-2 w-1/2" placeholder="Enter New Amount" min={0} step={0.001} onChange={(e) => setNewTotalFunds(e.target.value)} />
                 </div>
                 <div className="flex gap-4 justify-between">
-                    <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded w-1/2">Pay Amount</button>
-                    <input type="number" className="border-2 border-gray-300 rounded text-black px-2 w-1/2" placeholder="Enter Amount" min={0} step={0.001} onChange={(e) => setPayAmount(e.target.value)} />
+                    <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded w-full">Pay Amount</button>
                 </div>
                 <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded w-full">End Portfolio</button>
             </div>}
             {investor && <div className="flex flex-col space-y-4 mt-6">
                 <div className="flex justify-between gap-4">
-                    <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded w-1/2">Invest 🪙</button>
+                    <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded w-1/2" onClick={handleInvestAmount}>
+                        {isInvesting ? 'Investing...' : 'Invest 🪙'}
+                    </button>
                     <input type="number" className="border-2 border-gray-300 rounded text-black px-2 w-1/2" placeholder="Amount to invest" min={0} step={0.0001} onChange={(e) => setInvestAmount(e.target.value)} />
                 </div>
                 <div className="flex justify-between gap-4">
-                    <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-1/2">Withdraw 💳</button>
+                    <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-1/2" onClick={handleWithdrawAmount}>
+                        {isWithdrawing ? 'On the Way...' : 'Withdraw 💳'}
+                    </button>
                     <input type="number" className="border-2 border-gray-300 rounded text-black px-2 w-1/2" placeholder="Watch your funds" min={0} step={0.0001} onChange={(e) => setWithdrawAmount(e.target.value)} />
                 </div>
             </div>}
