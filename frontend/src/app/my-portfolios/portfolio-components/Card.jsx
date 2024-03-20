@@ -125,7 +125,6 @@ const Card = ({ id, contract, investor }) => {
     // to check if the total funds transaction is mining
     const isTotalFunds = totalFundsState?.status === 'Mining'
 
-    // console.log((amountCollected * maxReturn) / 100)
 
     // function to handle the payment
     const handlePayAmount = async (e) => {

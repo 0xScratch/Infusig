@@ -18,7 +18,6 @@ const Owner = () => {
     const [portfolioId2, setPortfolioId2] = useState(0);
     const [portfolioId3, setPortfolioId3] = useState(0);
 
-    // console.log(state, fee, returns, portfolioId1, portfolioId2, portfolioId3)
 
     const { switchNetwork } = useEthers();
 

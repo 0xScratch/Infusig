@@ -23,11 +23,8 @@ export default function BrowsePortfolios() {
     // const { account } = useEthers()
     
     const contract = useMemo(() => new Contract(platformAddress, Platform.abi), []);
-    // console.log(contract)
     const callArgs = useMemo(() => ({contract, method: 'getallIds', args: []}), [contract]);
-    // console.log(callArgs)
     const someValue = useCall(callArgs)
-    console.log(someValue)
     
     return (
         <main className="flex flex-col items-start justify-center text-white px-10 ml-20 mt-10">

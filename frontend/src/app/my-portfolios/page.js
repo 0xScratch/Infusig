@@ -7,7 +7,6 @@ import Card from "./portfolio-components/Card"
 import { useMemo } from "react";
 
 const { platformAddress } = require('@/context/address.json')
-// console.log(platformAddress)
 
 const PortfolioCard = ({ id, contract }) => {
     const isDeleted = useCall({contract, method: 'isPortfolioDeleted', args: [id]});
@@ -28,7 +27,6 @@ export default function MyPortfolios() {
     const contract = useMemo(() => new Contract(platformAddress, Platform.abi), []);
     const callArgs = useMemo(() => ({contract, method: 'getPortfolioIds', args: [account]}), [contract, account]);
     const someValue = useCall(callArgs)
-    // console.log(someValue)
     
     return (
         <main className="flex flex-col items-start justify-center text-white px-10 ml-20 mt-10">

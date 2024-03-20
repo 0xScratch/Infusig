@@ -1,15 +1,15 @@
 'use client'
 
 import { DAppProvider, DEFAULT_SUPPORTED_CHAINS } from "@usedapp/core"
-import { getDefaultProvider } from "ethers"
+// import { getDefaultProvider } from "ethers"
 import { OptimismSepolia } from "../context/chain"
 
-const { https } = require('/secrets.json')
+// const { https } = require('/secrets.json')
 
 const config = {
     readOnlyChainId: OptimismSepolia.chainId,
     readOnlyUrls: {
-        [OptimismSepolia.chainId]: https
+        [OptimismSepolia.chainId]: process.env.NEXT_PUBLIC_HTTPS
     },
     networks: [...DEFAULT_SUPPORTED_CHAINS, OptimismSepolia],
 }
