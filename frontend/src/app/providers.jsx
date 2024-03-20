@@ -7,7 +7,7 @@ const config = {
     readOnlyChainId: MoonbaseAlpha.chainId,
     readOnlyUrls: {
         [MoonbaseAlpha.chainId]: getDefaultProvider(
-            'https://moonbase-alpha.blastapi.io/d674f3b3-cfe9-4e7b-8d4f-601e1e1d17d2'
+            process.env.NEXT_PUBLIC_HTTPS
         )
     }
 }

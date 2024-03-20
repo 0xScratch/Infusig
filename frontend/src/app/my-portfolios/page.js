@@ -15,6 +15,8 @@ const PortfolioCard = ({ id, contract }) => {
         return null;
     }
 
+    if (!isDeleted) return null
+
     return <Card id={id} contract={contract} investor={false}/>
 }
 

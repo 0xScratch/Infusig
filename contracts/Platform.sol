@@ -243,7 +243,7 @@ contract Platform {
 
         // At last delete the portfolio data from the blockchain
         isDeleted[_id] = true;
-        delete portfolios[_id];
+        // delete portfolios[_id];
     }
 
     // This function will be called by the owner in case he finds some fraudelent activites done by the portfolio..here money will be returned to the investors including the amount stored by the manager of that portfolio, and that portfolio managers will be send to blacklist
@@ -288,7 +288,7 @@ contract Platform {
 
         // At last delete the portfolio data from the blockchain
         isDeleted[_id] = true;
-        delete portfolios[_id];
+        // delete portfolios[_id];
     }
 
     ////////// Helper Functions //////////
