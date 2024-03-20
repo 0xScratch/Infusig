@@ -1,7 +1,7 @@
 'use client'
 
 import {useState, useMemo} from 'react';
-import { ChainId, useEthers, useContractFunction, MoonbaseAlpha, useCall} from '@usedapp/core';
+import { ChainId, useEthers, useContractFunction} from '@usedapp/core';
 import { ethers, Contract } from 'ethers';
 import Platform from '@/context/Platform.json';
 
@@ -36,10 +36,10 @@ const Owner = () => {
     const handleChangeState = async (e) => {
         e.preventDefault()
 
-        // checking if the chainId is not equal to the MoonbaseAlpha chainId
+        // checking if the chainId is not equal to the Optimism chainId
         try {
-            if (ChainId !== MoonbaseAlpha.chainId) {
-                await switchNetwork(MoonbaseAlpha.chainId)
+            if (ChainId !== 11155420) {
+                await switchNetwork(11155420)
             }
 
             // sending the transaction
@@ -57,12 +57,10 @@ const Owner = () => {
     const handleChangeFee = async (e) => {
         e.preventDefault()
 
-        // checking if the chainId is not equal to the MoonbaseAlpha chainId
+        // checking if the chainId is not equal to the Optimism chainId
         try {
-            if (ChainId !== MoonbaseAlpha.chainId) {
-                await switchNetwork(MoonbaseAlpha.chainId)
-            }
-
+            if (ChainId !== 11155420) {
+                await switchNetwork(11155420) }
             const weiValue = ethers.utils.parseUnits(fee.toString(), 16);
             // sending the transaction
             await changeFeeSend(weiValue)
@@ -79,10 +77,10 @@ const Owner = () => {
     const handleSetReturns = async (e) => {
         e.preventDefault()
 
-        // checking if the chainId is not equal to the MoonbaseAlpha chainId
+        // checking if the chainId is not equal to the Optimism chainId
         try {
-            if (ChainId !== MoonbaseAlpha.chainId) {
-                await switchNetwork(MoonbaseAlpha.chainId)
+            if (ChainId !== 11155420) {
+                await switchNetwork(11155420)
             }
 
             const weiValue = ethers.utils.parseUnits(returns.toString(), 16);
@@ -101,10 +99,10 @@ const Owner = () => {
     const handleTerminate = async (e) => {
         e.preventDefault()
 
-        // checking if the chainId is not equal to the MoonbaseAlpha chainId
+        // checking if the chainId is not equal to the optimism chainId
         try {
-            if (ChainId !== MoonbaseAlpha.chainId) {
-                await switchNetwork(MoonbaseAlpha.chainId)
+            if (ChainId !== 11155420) {
+                await switchNetwork(11155420)
             }
 
             // sending the transaction

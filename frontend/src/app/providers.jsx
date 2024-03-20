@@ -1,15 +1,17 @@
 'use client'
 
-import { DAppProvider, MoonbaseAlpha } from "@usedapp/core"
+import { DAppProvider, DEFAULT_SUPPORTED_CHAINS } from "@usedapp/core"
 import { getDefaultProvider } from "ethers"
+import { OptimismSepolia } from "../context/chain"
+
+const { https } = require('/secrets.json')
 
 const config = {
-    readOnlyChainId: MoonbaseAlpha.chainId,
+    readOnlyChainId: OptimismSepolia.chainId,
     readOnlyUrls: {
-        [MoonbaseAlpha.chainId]: getDefaultProvider(
-            process.env.NEXT_PUBLIC_HTTPS
-        )
-    }
+        [OptimismSepolia.chainId]: https
+    },
+    networks: [...DEFAULT_SUPPORTED_CHAINS, OptimismSepolia],
 }
 
 export function Providers({ children }) {

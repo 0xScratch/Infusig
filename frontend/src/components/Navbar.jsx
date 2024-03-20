@@ -18,8 +18,8 @@ const Navbar = () => {
     }
 
     return (
-        <nav className="bg-[#06071b] p-2 w-full sticky top-1 z-50">
-            <div className="container mx-auto flex flex-wrap items-center">
+        <nav className="bg-[#000000] p-2 w-full sticky top-1 z-50">
+            <div className="mx-auto flex flex-wrap items-center">
                 <div className="flex w-full md:w-1/2 justify-center md:justify-start">
                     <Image src="/logo.png" alt="logo" className='logo' width={200} height={50} priority/>
                 </div>
@@ -32,13 +32,13 @@ const Navbar = () => {
                             <Link className="inline-block py-2 px-4 text-white no-underline hover:underline hover:text-white transition duration-200 ease-in-out" href="/my-portfolios"><strong>My Portfolios</strong></Link>
                         </li>
                         <li className="mr-8">
-                            <a className="inline-block py-2 px-4 text-white no-underline hover:underline hover:text-gray-200 transition duration-200 ease-in-out" href="/create-an-portfolio"><strong>Build a Portfolio</strong></a>
+                            <Link className="inline-block py-2 px-4 text-white no-underline hover:underline hover:text-gray-200 transition duration-200 ease-in-out" href="/create-an-portfolio"><strong>Build a Portfolio</strong></Link>
                         </li>
-                        {account == '0x52C4A8F1C008a5Fc56e86b561f92Ec54B75d7493' && <li className="mr-14">
-                            <a className="inline-block py-2 px-4 text-white no-underline hover:underline hover:text-gray-200 transition duration-200 ease-in-out" href="/owner"><strong>Owner&apos;s Section</strong></a>
+                        {account == '0xBf9B1DCd47769A4A886B6B64253d04618c6dc073' && <li className="mr-14">
+                            <Link className="inline-block py-2 px-4 text-white no-underline hover:underline hover:text-gray-200 transition duration-200 ease-in-out" href="/owner"><strong>Owner&apos;s Section</strong></Link>
                         </li>}
                         <li className="mr-5">
-                           <button className="inline-block text-white bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded transition duration-200 ease-in-out" onClick={handleWalletConnection}>
+                           <button className="inline-block text-white bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded-3xl transition duration-200 ease-in-out" onClick={handleWalletConnection}>
                             {account
                                 ? `Disconnect ${account.substring(0, 5)}...`
                                 : 'Connect Wallet'}

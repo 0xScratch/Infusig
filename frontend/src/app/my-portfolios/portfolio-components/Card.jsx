@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ChainId, MoonbaseAlpha, useCall, useContractFunction, useEthers } from "@usedapp/core";
+import { ChainId, useCall, useContractFunction, useEthers } from "@usedapp/core";
 import { ethers, utils } from "ethers";
 
 const Card = ({ id, contract, investor }) => {
@@ -39,10 +39,10 @@ const Card = ({ id, contract, investor }) => {
     const handleInvestAmount = async (e) => {
         e.preventDefault()
 
-        // checking if the chainId is not equal to the MoonbaseAlpha chainId
+        // checking if the chainId is not equal to the Optimism chainId
         try {
-            if (ChainId !== MoonbaseAlpha.chainId) {
-                await switchNetwork(MoonbaseAlpha.chainId)
+            if (ChainId !== 11155420) {
+                await switchNetwork(11155420)
             }
 
             const weiValue = ethers.utils.parseEther(investAmount.toString());
@@ -61,10 +61,10 @@ const Card = ({ id, contract, investor }) => {
     const handleWithdrawAmount = async (e) => {
         e.preventDefault()
 
-        // checking if the chainId is not equal to the MoonbaseAlpha chainId
+        // checking if the chainId is not equal to the Optimism chainId
         try {
-            if (ChainId !== MoonbaseAlpha.chainId) {
-                await switchNetwork(MoonbaseAlpha.chainId)
+            if (ChainId !== 11155420) {
+                await switchNetwork(11155420)
             }
 
             const weiValue = ethers.utils.parseEther(withdrawAmount.toString());
@@ -83,10 +83,10 @@ const Card = ({ id, contract, investor }) => {
     const handleMaxReturn = async (e) => {
         e.preventDefault()
 
-        // checking if the chainId is not equal to the MoonbaseAlpha chainId
+        // checking if the chainId is not equal to the Optimism chainId
         try {
-            if (ChainId !== MoonbaseAlpha.chainId) {
-                await switchNetwork(MoonbaseAlpha.chainId)
+            if (ChainId !== 11155420) {
+                await switchNetwork(11155420)
             }
 
             const maxReturnInCorrectUnit = ethers.utils.parseUnits(newMaxReturn.toString(), 16);
@@ -108,10 +108,10 @@ const Card = ({ id, contract, investor }) => {
     const handleTotalFunds = async (e) => {
         e.preventDefault()
 
-        // checking if the chainId is not equal to the MoonbaseAlpha chainId
+        // checking if the chainId is not equal to the Optimism chainId
         try {
-            if (ChainId !== MoonbaseAlpha.chainId) {
-                await switchNetwork(MoonbaseAlpha.chainId)
+            if (ChainId !== 11155420) {
+                await switchNetwork(11155420)
             }
 
             const weiValue = ethers.utils.parseEther(newTotalFunds.toString());
@@ -131,10 +131,10 @@ const Card = ({ id, contract, investor }) => {
     const handlePayAmount = async (e) => {
         e.preventDefault()
 
-        // checking if the chainId is not equal to the MoonbaseAlpha chainId
+        // checking if the chainId is not equal to the Optimism chainId
         try {
-            if (ChainId !== MoonbaseAlpha.chainId) {
-                await switchNetwork(MoonbaseAlpha.chainId)
+            if (ChainId !== 11155420) {
+                await switchNetwork(11155420)
             }
 
             const finalValue = (amountCollected * maxReturn) / 100
@@ -155,10 +155,10 @@ const Card = ({ id, contract, investor }) => {
     const handleEndPortfolio = async (e) => {
         e.preventDefault()
 
-        // checking if the chainId is not equal to the MoonbaseAlpha chainId
+        // checking if the chainId is not equal to the Optimism chainId
         try {
-            if (ChainId !== MoonbaseAlpha.chainId) {
-                await switchNetwork(MoonbaseAlpha.chainId)
+            if (ChainId !== 11155420) {
+                await switchNetwork(11155420)
             }
 
             // sending the transaction

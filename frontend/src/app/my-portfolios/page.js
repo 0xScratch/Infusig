@@ -3,10 +3,11 @@
 import { useCall, useEthers } from "@usedapp/core";
 import Platform from '@/context/Platform.json'
 import { Contract, utils } from "ethers";
-import Card from "./portfolio-components/Card";
+import Card from "./portfolio-components/Card"
 import { useMemo } from "react";
 
 const { platformAddress } = require('@/context/address.json')
+// console.log(platformAddress)
 
 const PortfolioCard = ({ id, contract }) => {
     const isDeleted = useCall({contract, method: 'isPortfolioDeleted', args: [id]});

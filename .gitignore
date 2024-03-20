@@ -14,4 +14,4 @@ node_modules
 /coverage.json
 
 # Secrets
-/secrets.json
+/secret.json

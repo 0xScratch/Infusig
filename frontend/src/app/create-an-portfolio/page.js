@@ -1,6 +1,6 @@
 'use client'
 
-import { useEthers, MoonbaseAlpha, useContractFunction } from "@usedapp/core";
+import { useEthers, useContractFunction } from "@usedapp/core";
 import Platform from '@/context/Platform.json'
 import { Contract, ethers } from "ethers";
 import { useState } from "react";
@@ -29,10 +29,10 @@ export default function Portfolio() {
         // preventing the default form submission
         e.preventDefault()
 
-        // checking if the chainId is not equal to the MoonbaseAlpha chainId
+        // checking if the chainId is not equal to the Optimism chainId
         try {
-            if (chainId !== MoonbaseAlpha.chainId) {
-                await switchNetwork(MoonbaseAlpha.chainId)
+            if (chainId !== 11155420) {
+                await switchNetwork(11155420)
             }
 
             // converting the values to the correct unit
