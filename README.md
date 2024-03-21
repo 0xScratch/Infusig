@@ -8,23 +8,23 @@ Also, this project is under development but still there's much to try out. I can
 
 ## Visual Tour
 
-1. **Home Page** - The landing page of the website. It's a simple page with several tabs to navigate different sections of the website with a button to connect your wallet, `Get you ETH from Faucet` button sends you to the faucet page where you can get some testnet ETH to try out the platform.
+**Home Page** - The landing page of the website. It's a simple page with several tabs to navigate different sections of the website with a button to connect your wallet, `Get you ETH from Faucet` button sends you to the faucet page where you can get some testnet ETH to try out the platform.
 
 ![Home Page](./screenshots/Home.png)
 
-2. **Build a Portfolio** - This page allows to create new portfolios by filling the required details.
+**Build a Portfolio** - This page allows to create new portfolios by filling the required details.
 
 ![Build a Portfolio](./screenshots/Create.png)
 
-3. **My Portfolios** - This page shows the list of portfolios created by the user. Each portfolio contains some buttons to interact with the portfolio which will be discussed later.
+**My Portfolios** - This page shows the list of portfolios created by the user. Each portfolio contains some buttons to interact with the portfolio which will be discussed later.
 
 ![My Portfolios](./screenshots/Yours.png)
 
-4. **Invest Now** - This page shows the list of portfolios created by other users. You can invest in any of the portfolios by clicking on the `Invest` button. Or if feels like withdrawing the investment, `Withdraw` button saves your day!
+**Invest Now** - This page shows the list of portfolios created by other users. You can invest in any of the portfolios by clicking on the `Invest` button. Or if feels like withdrawing the investment, `Withdraw` button saves your day!
 
 ![Invest Now](./screenshots/Invest.png)
 
-5. **Owner's Section** - This page is a secret one, only opened for the owner of smart contract. But still you can access it [here](https://infusig.vercel.app/owner), but not those buttons. We know why!
+**Owner's Section** - This page is a secret one, only opened for the owner of smart contract. But still you can access it [here](https://infusig.vercel.app/owner), but not those buttons. We know why!
 
 ![Owner's Section](./screenshots/Owner.png)
 
@@ -32,7 +32,8 @@ Also, this project is under development but still there's much to try out. I can
 
 - [Infusig: A Solution for...](#infusig-a-solution-for)
 - [Understanding Infusig: Features and Functionality](#understanding-infusig-features-and-functionality)
-
+      - [Behind the Scenes](#behind-the-scenes)
+      - [Functionality of the Website](#functionality-of-the-website)
 
 ### Infusig: A Solution for...
 
@@ -91,4 +92,12 @@ By looking at above section, this will be a piece of cake for you to understand 
     - **Terminate**: As the name suggests, this button will be used to terminate the platform. But make sure, this button will only be used in case of any dispute or fraudelent activities by the portfolio managers.
     - **ChangeFee**: This button is used to change the platform fees.
 
-    
+## My Experience with ***Backdrop***
+
+It was my first time participating in a Backdrop Build and really enjoyed it. Although, during this 3-4 weeks timespan I was engaged in two projects, one was `Nexbizn` - a NFT marketing platform, for encode hackathon based on polkadot ecosystem which ended on 11 March and other was backdrop build itself. So, Making `Infusig` in merely 8-9 days was pretty thrilling and adventorous in itself. Felt more good on the fact that I had been able to launch it right on the deadline and hit up the goals which this project was marked upon. Although, features like Account abstraction, fiat transactions, APIs integration, portfolio management in a better way, and many more were not implemented due to less time plus their complexity. But still, the outcome is quite satisfying if not the best.
+
+## What I Learnt
+
+- **Time Management**: This is really the daunting thing which one need to have a grip upon when building projects within some deadline. Sometimes felt loosing up the time when I was engaged in both projects and also had to manage my college stuff. But, being articulated with my plans and ideas really helped me to keep up with the deadlines and thus, I was able to launch the project right on time.
+- **Habit of Noting down things**: It's the most worthy thing which I practiced during this project, writing down every note and idea which came to my mind related to this project even if seems crazy or weird. Usually, the mind becomes a cluttered place when we are engaged in multiple things and thus, we tend to forget things. But, noting down things really helps when we are building and saves our time and energy.
+- **Adapt and Move (Advice)**: There be times, when you be feeling that this project is not going to be completed on time or you are not able to implement the features which you thought of. But, it's really important to adapt to the situation and move on. Just cut the things short, and launch the project. Atleast better than giving it up...
