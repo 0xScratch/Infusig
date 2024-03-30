@@ -32,8 +32,8 @@ Also, this project is under development but still there's much to try out. I can
 
 - [Infusig: A Solution for...](#infusig-a-solution-for)
 - [Understanding Infusig: Features and Functionality](#understanding-infusig-features-and-functionality)
-      - [Behind the Scenes](#behind-the-scenes)
-      - [Functionality of the Website](#functionality-of-the-website)
+    - [Behind the Scenes](#behind-the-scenes)
+    - [Functionality of the Website](#functionality-of-the-website)
 
 ### Infusig: A Solution for...
 
