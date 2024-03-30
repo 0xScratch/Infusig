@@ -34,6 +34,9 @@ const Navbar = () => {
                         <li className="mr-8">
                             <Link className="inline-block py-2 px-4 text-white no-underline hover:underline hover:text-gray-200 transition duration-200 ease-in-out" href="/create-an-portfolio"><strong>Build a Portfolio</strong></Link>
                         </li>
+                        <li className='mr-8'>
+                            <Link className="inline-block py-2 px-4 text-white no-underline hover:underline hover:text-gray-200 transition duration-200 ease-in-out" href="https://github.com/0xScratch/Infusig/blob/main/README.md"><strong>About</strong></Link>
+                        </li>
                         {account == '0xBf9B1DCd47769A4A886B6B64253d04618c6dc073' && <li className="mr-14">
                             <Link className="inline-block py-2 px-4 text-white no-underline hover:underline hover:text-gray-200 transition duration-200 ease-in-out" href="/owner"><strong>Owner&apos;s Section</strong></Link>
                         </li>}
