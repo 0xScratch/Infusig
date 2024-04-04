@@ -101,3 +101,7 @@ It was my first time participating in a Backdrop Build and really enjoyed it. Al
 - **Time Management**: This is really the daunting thing which one need to have a grip upon when building projects within some deadline. Sometimes felt loosing up the time when I was engaged in both projects and also had to manage my college stuff. But, being articulated with my plans and ideas really helped me to keep up with the deadlines and thus, I was able to launch the project right on time.
 - **Habit of Noting down things**: It's the most worthy thing which I practiced during this project, writing down every note and idea which came to my mind related to this project even if seems crazy or weird. Usually, the mind becomes a cluttered place when we are engaged in multiple things and thus, we tend to forget things. But, noting down things really helps when we are building and saves our time and energy.
 - **Adapt and Move (Advice)**: There be times, when you be feeling that this project is not going to be completed on time or you are not able to implement the features which you thought of. But, it's really important to adapt to the situation and move on. Just cut the things short, and launch the project. Atleast better than giving it up...
+
+# Contributing
+
+Contributions are welcome! If you have any ideas, suggestions, or bug reports, please open an issue or submit a pull request.
