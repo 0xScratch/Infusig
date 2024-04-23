@@ -6,6 +6,8 @@ Our platform leverages the security and transparency of the Optimism (OP) networ
 
 Also, this project is under development but still there's much to try out. I can really think of some great features which will make it insanely good. We will discuss about it as we deep dive into the README.
 
+Built and launched during [Backdrop Build V3](https://backdropbuild.com/)
+
 ## Visual Tour
 
 **Home Page** - The landing page of the website. It's a simple page with several tabs to navigate different sections of the website with a button to connect your wallet, `Get you ETH from Faucet` button sends you to the faucet page where you can get some testnet ETH to try out the platform.
