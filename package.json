@@ -8,6 +8,6 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^5.0.2",
-    "next": "^15.5.18"
+    "next": "^15.5.21"
   }
 }
